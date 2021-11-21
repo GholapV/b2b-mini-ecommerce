@@ -4,7 +4,7 @@ info:
   contact: {}
   version: "1.0"
 servers:
-  - url: http://localhost:5000/e-commerce/v1/api
+  - url: https://b2b-mini-ecommerce.herokuapp.com/e-commerce/v1/api
     variables: {}
 paths:
   /owner/register:

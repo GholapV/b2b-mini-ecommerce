@@ -1,0 +1,339 @@
+openapi: 3.0.0
+info:
+  title: e-commerce
+  contact: {}
+  version: "1.0"
+servers:
+  - url: http://localhost:5000/e-commerce/v1/api
+    variables: {}
+paths:
+  /owner/register:
+    post:
+      tags:
+        - auth
+      summary: register owner
+      operationId: registerowner
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/registerownerrequest"
+            example:
+              name: yourname
+              email: yourmailid@gmail.com
+              password: password
+              contact: 1111111111
+              location: your location
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /user/register:
+    post:
+      tags:
+        - auth
+      summary: register user
+      operationId: registeruser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/registeruserrequest"
+            example:
+              name: yourname
+              email: yourmailid@gmail.com
+              password: password
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /owner/login:
+    post:
+      tags:
+        - auth
+      summary: login owner
+      operationId: loginowner
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginownerrequest"
+            example:
+              email: yourmailid@gmail.com
+              password: password
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /user/login:
+    post:
+      tags:
+        - auth
+      summary: login user
+      operationId: loginuser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginuserrequest"
+            example:
+              email: yourmailid@gmail.com
+              password: password
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /store:
+    post:
+      tags:
+        - owner
+      summary: add products to store
+      operationId: addproductstostore
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/addproductstostorerequest"
+            example:
+              product_name: product name
+              price: 1111
+              rating: 1
+              image: http://image.com
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+        - everyone
+      summary: see store
+      operationId: seestore
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /store/orders:
+    get:
+      tags:
+        - owner
+      summary: see received orders
+      operationId: seereceivedorders
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /store/{id}:
+    delete:
+      tags:
+        - owner
+      summary: delete products from store
+      operationId: deleteproductsfromstore
+      parameters:
+        - name: id
+          in: path
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /user/cart/{id}:
+    post:
+      tags:
+        - user
+      summary: add to cart
+      operationId: addtocart
+      parameters:
+        - name: id
+          in: path
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /user/place-order:
+    post:
+      tags:
+        - user
+      summary: place order
+      operationId: placeorder
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+        - user
+      summary: see placed orders
+      operationId: seeplacedorders
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /user/cart:
+    get:
+      tags:
+        - user
+      summary: see cart
+      operationId: seecart
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    registerownerrequest:
+      title: registerownerrequest
+      required:
+        - name
+        - email
+        - password
+        - contact
+        - location
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        contact:
+          type: integer
+          format: int32
+        location:
+          type: string
+      example:
+        name: yourname
+        email: yourmailid@gmail.com
+        password: password
+        contact: 1111111111
+        location: your location
+    registeruserrequest:
+      title: registeruserrequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: yourname
+        email: yourmailid@gmail.com
+        password: password
+    addproductstostorerequest:
+      title: addproductstostorerequest
+      required:
+        - product_name
+        - price
+        - rating
+        - image
+      type: object
+      properties:
+        product_name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        rating:
+          type: number
+        image:
+          type: string
+      example:
+        product_name: product name
+        price: 1111
+        rating: 1
+        image: http://image.com
+    loginownerrequest:
+      title: loginownerrequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: yourmailid@gmail.com
+        password: password
+    loginuserrequest:
+      title: loginuserrequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: yourmailid@gmail.com
+        password: password
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: auth
+    description: ""
+  - name: owner
+    description: ""
+  - name: everyone
+    description: ""
+  - name: user
+    description: ""
